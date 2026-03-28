@@ -14,28 +14,13 @@
 
 ---
 
-## 📁 Repository Structure
-
-```
-PICO_CTFs-WRITEUPS/
-├── Hashgate/
-│   └── writeup.md
-├── Crystal-Peak/
-│   └── writeup.md
-└── README.md          ← you are here
-```
-
-> Each folder = one challenge. Click any challenge name in the table to jump straight to its writeup.
-
----
-
 ## 📋 Writeup Index
 
 ### 🌐 Web Exploitation
 
 | # | Challenge | Difficulty | Technique | Status |
 |---|-----------|------------|-----------|--------|
-| 01 | [Hashgate](./Crystal-Peak/writeup.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) | IDOR · MD5 Enum · Hardcoded Creds | ✅ Solved |
+| 01 | [Hashgate](./Hashgate/hashgate_writeup.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) | IDOR · MD5 Enum · Hardcoded Creds | ✅ Solved |
 
 ### 🔐 Cryptography
 
