@@ -159,7 +159,7 @@ http://crystal-peak.picoctf.net:51696/profile/user/<admin_md5_hash>
 ## 🚩 Flag
 
 ```
-picoCTF{[REDACTED — solve it yourself!]}
+picoCTF{id0r_unl0ck_e581be16}
 ```
 
 ---
