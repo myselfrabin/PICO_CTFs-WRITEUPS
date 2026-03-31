@@ -20,7 +20,8 @@
 
 | # | Challenge | Difficulty | Technique | Status |
 |---|-----------|------------|-----------|--------|
-| 01 | [Hashgate](./Hashgate/hashgate_writeup.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) | IDOR · MD5 Enum · Hardcoded Creds | ✅ Solved |
+| 01 | [Hashgate](./Hashgate/hashgate_writeup.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) |IDOR · MD5 Enum · Hardcoded Creds | ✅ Solved |
+| 02 | [Secret Box](./Secret%20Box/secret-box-sqli.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) | Stacked Sqli . INSERT-based blind exfiltration | ✅ Solved |
 
 ### 🔐 Cryptography
 
