@@ -244,7 +244,7 @@ Navigated to **My Secrets**  a brand new entry appeared, written by our injected
 ![Challenge solved  flag captured](./solved.png)
 
 ```
-picoCTF{flag_here}
+picoCTF{sql_1nject10n_429d1d8c}
 ```
 
 ---
