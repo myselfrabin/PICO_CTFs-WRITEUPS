@@ -16,7 +16,7 @@
 
 ## 📋 Challenge Description
 
-> *This secret box is designed to conceal your secrets. It's perfectly secure — only you can see what's inside. Or can you? Try uncovering the admin's secret.*
+> *This secret box is designed to conceal your secrets. It's perfectly secure  only you can see what's inside. Or can you? Try uncovering the admin's secret.*
 
 **The mission:** Extract the admin's secret from the database and capture the flag.
 
@@ -88,7 +88,7 @@ The app provides a form to store personal secrets:
 
 ![Create new secret form](./create_new_secret.png)
 
-Submitted a test value `nice_nice` — executed successfully with no errors:
+Submitted a test value `nice_nice`  executed successfully with no errors:
 
 ![Secret submitted](./secret.png)
 
@@ -98,13 +98,13 @@ Since the source code already confirmed **PostgreSQL** as the backend database, 
 
 ## 🧪 Identifying the Vulnerability
 
-### Step 5 — Single Quote Injection Test
+### Step 5 ; Single Quote Injection Test
 
 Injected a single quote `'` into the secret content field:
 
 ![Single quote test](./single_quote_to_test_for_sqli.png)
 
-**The app returned a raw PostgreSQL error — unhandled and fully exposed:**
+**The app returned a raw PostgreSQL error  unhandled and fully exposed:**
 
 ![Classic SQL error](./classic_sql_error.png)
 
@@ -126,7 +126,7 @@ unterminated quoted string at or near "''')"
 > - **Backend DB:** PostgreSQL (via `pg-protocol`)
 > - **Runtime:** Node.js
 > - **Injection point:** The `content` field inside an `INSERT` statement
-> - **Our input** is placed raw into the SQL query — zero sanitization
+> - **Our input** is placed raw into the SQL query  zero sanitization
 
 ---
 
@@ -141,7 +141,7 @@ INSERT INTO secrets(owner_id, content) VALUES ('[user_id]', '[OUR INPUT HERE]')
 We control `[OUR INPUT HERE]` entirely. The plan:
 1. **Escape** the string context with `'`
 2. **Terminate** the statement with `);`
-3. **Inject** a second SQL statement (stacked query — PostgreSQL supports this)
+3. **Inject** a second SQL statement (stacked query  PostgreSQL supports this)
 4. **Comment out** the trailing `')` garbage with `-- -`
 
 ### Step 6 ; Validating the Escape Sequence
@@ -164,7 +164,7 @@ Payload: `');-- -`
 ');SELECT content FROM secrets WHERE owner_id='e2a66f7d-2ce6-4861-b4aa-be8e069601cb'-- -
 ```
 
-**Result:** Query executes server-side — but the `SELECT` output is **never returned to the UI**. The app only renders secrets that belong to the **currently logged-in user's `owner_id`**. The admin's data exists in the DB but we can't see it this way.
+**Result:** Query executes server-side  but the `SELECT` output is **never returned to the UI**. The app only renders secrets that belong to the **currently logged-in user's `owner_id`**. The admin's data exists in the DB but we can't see it this way.
 
 We need a different approach.
 
@@ -239,9 +239,9 @@ Submitted the payload:
 
 ## 🚩 Result
 
-Navigated to **My Secrets** — a brand new entry appeared, written by our injected INSERT, containing the admin's secret:
+Navigated to **My Secrets**  a brand new entry appeared, written by our injected INSERT, containing the admin's secret:
 
-![Challenge solved — flag captured](./solved.png)
+![Challenge solved  flag captured](./solved.png)
 
 ```
 picoCTF{flag_here}
@@ -254,11 +254,11 @@ picoCTF{flag_here}
 <details>
 <summary><strong>🔴 Stacked SQL Injection in INSERT Statement (CWE-89)</strong></summary>
 
-**Type:** CWE-89 — Improper Neutralization of Special Elements in SQL Commands  
+**Type:** CWE-89  Improper Neutralization of Special Elements in SQL Commands  
 **Backend:** PostgreSQL via Node.js `pg` driver  
 **Injection Point:** `content` field of the "Create Secret" form  
 **Impact:** Full read access to **any row** in the `secrets` table, regardless of `owner_id`  
-**Root Cause:** Raw string interpolation — user input is directly concatenated into the SQL query string with no parameterization
+**Root Cause:** Raw string interpolation  user input is directly concatenated into the SQL query string with no parameterization
 
 </details>
 
@@ -267,10 +267,10 @@ picoCTF{flag_here}
 ## 🛠️ Fix
 
 ```js
-// ❌ VULNERABLE — raw string interpolation, user input hits SQL parser directly
+// ❌ VULNERABLE  raw string interpolation, user input hits SQL parser directly
 db.query(`INSERT INTO secrets(owner_id, content) VALUES ('${uid}', '${content}')`)
 
-// ✅ SECURE — parameterized query, input is treated as data, never as SQL
+// ✅ SECURE  parameterized query, input is treated as data, never as SQL
 db.query('INSERT INTO secrets(owner_id, content) VALUES ($1, $2)', [uid, content])
 ```
 
@@ -300,7 +300,7 @@ db.query('INSERT INTO secrets(owner_id, content) VALUES ($1, $2)', [uid, content
 
 ## 🧠 Key Takeaways
 
-- **Error messages are intelligence.** The raw PostgreSQL stack trace leaked the injection point, the DB engine, the query structure, and our own `owner_id` — all critical recon in one shot.
+- **Error messages are intelligence.** The raw PostgreSQL stack trace leaked the injection point, the DB engine, the query structure, and our own `owner_id` , all critical recon in one shot.
 - **Blind doesn't mean impossible.** When SELECT output isn't reflected, pivot: use a second INSERT to write the result somewhere you *can* read.
 - **Source code review wins every time.** The admin UUID was sitting in `db.js` from day one. Always read available source.
 - **Stacked queries in PostgreSQL** allow multiple statements separated by `;`. Unlike MySQL (which often blocks this), PostgreSQL executes them. Know your target DB engine.
