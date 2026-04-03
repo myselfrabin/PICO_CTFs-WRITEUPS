@@ -23,36 +23,6 @@
 | 01 | [Hashgate](./Hashgate/hashgate_writeup.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) |IDOR · MD5 Enum · Hardcoded Creds | ✅ Solved |
 | 02 | [Secret Box](./Secret%20Box/secret-box-sqli.md) | ![Medium](https://img.shields.io/badge/Medium-f78166?style=flat-square) | Stacked Sqli . INSERT-based blind exfiltration | ✅ Solved |
 
-### 🔐 Cryptography
-
-| # | Challenge | Difficulty | Technique | Status |
-|---|-----------|------------|-----------|--------|
-| — | *Coming soon* | — | — | 🔒 |
-
-### 🔎 Forensics
-
-| # | Challenge | Difficulty | Technique | Status |
-|---|-----------|------------|-----------|--------|
-| — | *Coming soon* | — | — | 🔒 |
-
-### 💻 General Skills
-
-| # | Challenge | Difficulty | Technique | Status |
-|---|-----------|------------|-----------|--------|
-| — | *Coming soon* | — | — | 🔒 |
-
-### 🔢 Reverse Engineering
-
-| # | Challenge | Difficulty | Technique | Status |
-|---|-----------|------------|-----------|--------|
-| — | *Coming soon* | — | — | 🔒 |
-
-### 💣 Binary Exploitation
-
-| # | Challenge | Difficulty | Technique | Status |
-|---|-----------|------------|-----------|--------|
-| — | *Coming soon* | — | — | 🔒 |
-
 ---
 
 <div align="center">
